@@ -79,20 +79,19 @@ $(document).ready(function(){
 			$.ajax({
 				url : DOMAIN+"/includes/process.php",
 				method : "POST",
-				data : $("#register_form").serialize(),
+				data : $('#register_form').serialize(),
 				success : function(data){
 					if (data == "EMAIL_ALREADY_EXISTS") 
 					{
 						alert("Email already used");
 					}
-					else if(data == "Some_Error")
+					else if (data == "Some_Error")
 					{
 						alert("Something Wrong");
 					}
 					else
 					{
-						alert(data);
-						window.location.href = encodeURI(DOMAIN+"/index.php?msg= You are registered");
+						window.location.href=encodeURI(DOMAIN+"/index.php?msg=You are registered. Please Login to continue");
 					}
 				}
 			})
