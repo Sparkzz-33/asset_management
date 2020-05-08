@@ -81,19 +81,28 @@ $(document).ready(function(){
 				method : "POST",
 				data : $('#register_form').serialize(),
 				success : function(data) {
-
-					if (data=="Present") 
+					var j;
+					var res;
+					for(j=0;j<String(data).length;j++)
+					{
+						if(String(data).charCodeAt(j) >= 65)
+						{
+							res = String(data).substring(j);
+							break;
+						}
+					}
+					if (res=="Present") 
 					{
 						alert("Email already used");
 					}
-					else if (data=="Some_Error")
+					else if (res=="Some_Error")
 					{
 						alert("Something Wrong");
 					}
-					if (data != "Present" && data != "Some_Error")
+					else
 					{
-						alert(data);
-						//window.location.href=encodeURI(DOMAIN+"/index.php?msg=You are registered. Please Login to continue");
+						// alert(data);
+						window.location.href=encodeURI(DOMAIN+"/index.php?msg=You are registered. Please Login to continue");
 					}
 
 				}
@@ -115,7 +124,7 @@ $(document).ready(function(){
 		var pass = ""
 		pass = $("#log_password");
 		var status = false;
-		if (email.val == "")
+		if (email.val() == "")
 		{
 			email.addClass("border-danger");
 			$("#e_error").html("<span class='text-danger'>Please Enter email address</span>");
@@ -123,13 +132,12 @@ $(document).ready(function(){
 		}
 		else
 		{
-			alert("hi");
 			email.removeClass("border-danger");
 			$("#e_error").html("");
 			status = true;
 		}
 
-		if (pass.val == "")
+		if (pass.val() == "")
 		{
 			pass.addClass("border-danger");
 			$("#p_error").html("<span class='text-danger'>Please Enter Password</span>");
@@ -143,7 +151,42 @@ $(document).ready(function(){
 		}
 		if (status)
 		{
-			alert("ready");
+			$.ajax({
+				url : DOMAIN+"/includes/process.php",
+				method : "POST",
+				data : $("#form_login").serialize(),
+				success : function(data) {
+
+					var j;
+					var res;
+					for(j=0;j<String(data).length;j++)
+					{
+						if(String(data).charCodeAt(j) >= 65)
+						{
+							res = String(data).substring(j);
+							break;
+						}
+					}
+
+					if (String(res) == "Not_Registered") 
+					{
+						email.addClass("border-danger");
+						$("#e_error").html("<span class='text-danger'>You are not a registered user</span>");
+		
+					}
+					else if (String(res) == "PASSWORD_NOT_MATCHED")
+					{
+						pass.addClass("border-danger");
+						$("#p_error").html("<span class='text-danger'>Please enter correct password</span>");
+					}
+					else
+					{
+						//alert("Successful");
+						window.location.href = DOMAIN + "/dashboard.php";
+					}
+
+				}
+			})
 		}
 	})
 })
