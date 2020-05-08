@@ -80,19 +80,22 @@ $(document).ready(function(){
 				url : DOMAIN+"/includes/process.php",
 				method : "POST",
 				data : $('#register_form').serialize(),
-				success : function(data){
-					if (data == "EMAIL_ALREADY_EXISTS") 
+				success : function(data) {
+
+					if (data=="Present") 
 					{
 						alert("Email already used");
 					}
-					else if (data == "Some_Error")
+					else if (data=="Some_Error")
 					{
 						alert("Something Wrong");
 					}
-					else
+					if (data != "Present" && data != "Some_Error")
 					{
-						window.location.href=encodeURI(DOMAIN+"/index.php?msg=You are registered. Please Login to continue");
+						alert(data);
+						//window.location.href=encodeURI(DOMAIN+"/index.php?msg=You are registered. Please Login to continue");
 					}
+
 				}
 			})
 		}
@@ -101,6 +104,46 @@ $(document).ready(function(){
 			pass2.addClass("border-danger");
 			$("#p2_error").html("<span class='text-danger'>Passwords do not match</span>");
 			status = true;
+		}
+	})
+
+	//For login part
+
+	$("#form_login").on("submit",function(){
+		var email = "";
+		email = $("#log_email");
+		var pass = ""
+		pass = $("#log_password");
+		var status = false;
+		if (email.val == "")
+		{
+			email.addClass("border-danger");
+			$("#e_error").html("<span class='text-danger'>Please Enter email address</span>");
+			status = false;
+		}
+		else
+		{
+			alert("hi");
+			email.removeClass("border-danger");
+			$("#e_error").html("");
+			status = true;
+		}
+
+		if (pass.val == "")
+		{
+			pass.addClass("border-danger");
+			$("#p_error").html("<span class='text-danger'>Please Enter Password</span>");
+			status = false;
+		}
+		else
+		{
+			pass.removeClass("border-danger");
+			$("#p_error").html("");
+			status = true;
+		}
+		if (status)
+		{
+			alert("ready");
 		}
 	})
 })

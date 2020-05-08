@@ -34,8 +34,8 @@ class User
 	public function createUserAccount($username, $email, $password, $usertype){
 			//To protect from sql attck use prepared statement
 		if ($this->emailExists($email) == 1) {
-			
-			return "EMAIL_ALREADY_EXISTS";
+
+			return "Present";
 		}
 		else
 		{
@@ -99,7 +99,7 @@ class User
 }
 
 // $user = new User();
-// $user->createUserAccount("Ashutosh","rajput.ashutosh33@gmail.com", "123456789", "Admin");//
-//echo $user->userLogin("rajput.ashutosh33@gmail.com", "123456789");
+// $user->createUserAccount("Ashutosh","rajput.ashutosh33@gmail.com", "123456789", "Admin");
+// echo $user->userLogin("rajput.ashutosh33@gmail.com", "123456789");
 ?>
 
