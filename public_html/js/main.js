@@ -205,4 +205,92 @@ $(document).ready(function(){
 			}
 		})
 	}
+
+//ADD CATEGORY
+
+	$("#category_form").on("submit", function()
+	{
+		if($("#category_name").val() == "")
+		{
+			$("#category_name").addClass("border-danger");
+			$("#cat_error").html("<span class='text-danger'>Please enter category name</span>");
+		}
+		else
+		{
+			$.ajax({
+				url : DOMAIN + "/includes/process.php",
+				method : "POST",
+				data  :$("#category_form").serialize(),
+				success : function(data)
+				{
+					var j;
+					var res;
+					for(j=0;j<String(data).length;j++)
+					{
+						if(String(data).charCodeAt(j) >= 65)
+						{
+							res = String(data).substring(j);
+							break;
+						}
+					}
+					data = res;
+					if(data == "CATEGORY_ADDED")
+					{
+						$("#category_name").removeClass("border-danger");
+						$("#cat_error").html("<span class='text-success'>New Category Added Successfully</span>");
+						$("#category_name").val("");
+					}
+					else
+					{
+						alert(data);
+					}
+					
+				}
+			})
+		}
+	})
+
+
+	//Add brand
+	$("#brand_form").on("submit", function()
+	{
+		if($("#brand_name").val() == "")
+		{
+			$("#brand_name").addClass("border-danger");
+			$("#brand_error").html("<span class='text-danger'>Please enter brand name first</span>")
+		}
+		else
+		{
+			$.ajax({
+				url : DOMAIN + "/includes/process.php",
+				method : "POST",
+				data  :$("#brand_form").serialize(), 
+				success : function(data)
+				{
+					var j;
+					var res;
+					for(j=0;j<String(data).length;j++)
+					{
+						if(String(data).charCodeAt(j) >= 65)
+						{
+							res = String(data).substring(j);
+							break;
+						}
+					}
+					data = res;
+					if(data == "BRAND_ADDED")
+					{
+						$("#brand_name").removeClass("border-danger");
+					 	$("#brand_error").html("<span class='text-success'>New Brand Added Successfully</span>");
+					 	$("#brand_name").val("");
+					}
+					else
+					{
+						alert(data);
+					}
+				}
+			})
+		}
+	})
+
 })

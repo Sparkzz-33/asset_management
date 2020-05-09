@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="form_category" onsubmit="return false">
+        <form id="category_form" onsubmit="return false">
             <div class="form-group">
               <label>Category Name</label>
               <input type="text" class="form-control" name="category_name" id="category_name" aria-describedby="emailHelp">

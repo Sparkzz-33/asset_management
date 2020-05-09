@@ -27,9 +27,27 @@ if (isset($_POST["getCategory"]))
 		$obj = new DBOperation();
 		$rows = $obj->getAllRecord("categories");
 		foreach ($rows as $row) {
-			echo "<option value = '".$row["parent_cat"]."'>".$row["category_name"]."</option>";
+			echo "<option value = '".$row["cid"]."'>".$row["category_name"]."</option>";
 		}
 		exit();
+}
+
+//Add Category
+
+if (isset($_POST["category_name"]) AND isset($_POST["parent_cat"])) {
+	$obj = new DBOperation();
+	$result = $obj->addCategory($_POST["parent_cat"], $_POST["category_name"]);
+	echo $result;
+	exit();
+}
+
+
+//ADD BRAND
+if (isset($_POST["brand_name"])) {
+	$obj = new DBOperation();
+	$result = $obj->addBrand($_POST["brand_name"]);
+	echo $result;
+	exit();
 }
 
 
