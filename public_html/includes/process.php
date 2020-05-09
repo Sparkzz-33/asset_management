@@ -3,7 +3,7 @@
 
 include_once("../database/constants.php");
 include_once("user.php");
-
+include_once("DBOperation.php");
 if (isset($_POST["username"]) AND isset($_POST["email"])) 
 {
 	$user = new User();
@@ -21,6 +21,16 @@ if (isset($_POST["log_email"]) AND isset($_POST["log_password"]))
 	exit();
 }
 
+//Get Category
+if (isset($_POST["getCategory"])) 
+{
+		$obj = new DBOperation();
+		$rows = $obj->getAllRecord("categories");
+		foreach ($rows as $row) {
+			echo "<option value = '".$row["parent_cat"]."'>".$row["category_name"]."</option>";
+		}
+		exit();
+}
 
 
 ?>

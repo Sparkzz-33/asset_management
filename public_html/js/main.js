@@ -189,4 +189,20 @@ $(document).ready(function(){
 			})
 		}
 	})
+
+	//Fetch category
+	fetch_category();
+	function fetch_category()
+	{
+		$.ajax({
+			url : DOMAIN + "/includes/process.php",
+			method  :"POST",
+			data : {getCategory:1},
+			success : function(data)
+			{
+				var root = "<option value='0'>Root</option>"
+				$("#parent_cat").html(root + data);
+			}
+		})
+	}
 })
