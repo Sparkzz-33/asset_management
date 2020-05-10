@@ -27,7 +27,7 @@
 		include_once("./templates/header.php");
 	?>
 	<br/>
-	<div class="container">
+	<div class = "container">
 		<div class="row" style="height: 80%">
 			<div class="col-md-4">
 				<div class="card mx-auto">
@@ -54,7 +54,7 @@
 							<div class="card">
 						      <div class="card-body">
 						        <h5 class="card-title">New Orders</h5>
-						        <p class="card-text">Here you can create new orsers and create invoices</p>
+						        <p class="card-text">Here you can create new orders and create invoices</p>
 						        <a href="#" class="btn btn-primary">New Orders</a>
 						      </div>
 							</div>

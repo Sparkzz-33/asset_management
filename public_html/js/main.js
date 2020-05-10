@@ -200,8 +200,26 @@ $(document).ready(function(){
 			data : {getCategory:1},
 			success : function(data)
 			{
-				var root = "<option value='0'>Root</option>"
-				$("#parent_cat").html(root + data);
+				var root = "<option value='0'>Root</option>";
+				var choose = "<option value=''>Choose Category</option>";
+				$("#parent_cat").html(root+data);
+				$("#select_cat").html(choose+data);
+			}
+		})
+	}
+
+	fetch_brand();
+	function fetch_brand()
+	{
+		$.ajax({
+			url : DOMAIN + "/includes/process.php",
+			method  :"POST",
+			data : {getBrand:1},
+			success : function(data)
+			{
+				
+				var choose = "<option value=''>Choose Brand</option>";
+				$("#select_brand").html(choose+data);
 			}
 		})
 	}
@@ -291,6 +309,42 @@ $(document).ready(function(){
 				}
 			})
 		}
+	})
+	//add product
+	$("#product_form").on("submit", function(){
+		$.ajax({
+				url : DOMAIN + "/includes/process.php",
+				method : "POST",
+				data  :$("#product_form").serialize(), 
+				success : function(data)
+				{
+					var j;
+					var res;
+					for(j=0;j<String(data).length;j++)
+					{
+						if(String(data).charCodeAt(j) >= 65)
+						{
+							res = String(data).substring(j);
+							break;
+						}
+					}
+					data = res;
+					if(data == "PRODUCT_ADDED")
+					{
+						$("#product_name").val("");
+						$("#product_qty").val("");
+						$("#product_price").val("");
+						$("#select_cat").val("");
+						$("#select_brand").val("");
+						alert(data);
+					}
+					else
+					{
+						console.log(data);
+						//alert(data);
+					}
+				}
+			})
 	})
 
 })
