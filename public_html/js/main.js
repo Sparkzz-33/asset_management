@@ -257,6 +257,7 @@ $(document).ready(function(){
 						$("#category_name").removeClass("border-danger");
 						$("#cat_error").html("<span class='text-success'>New Category Added Successfully</span>");
 						$("#category_name").val("");
+						fetch_category();
 					}
 					else
 					{
@@ -301,6 +302,7 @@ $(document).ready(function(){
 						$("#brand_name").removeClass("border-danger");
 					 	$("#brand_error").html("<span class='text-success'>New Brand Added Successfully</span>");
 					 	$("#brand_name").val("");
+					 	fetch_brand();
 					}
 					else
 					{
@@ -346,5 +348,7 @@ $(document).ready(function(){
 				}
 			})
 	})
+
+	
 
 })
