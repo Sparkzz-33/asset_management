@@ -20,7 +20,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script type="text/javascript" src="./js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <!-- <style>
+    	body
+    	{
+    		background-color: #303030;
+    	}
+    </style> -->
 </head>
 <body>
 	<?php  //Navigation Bar
@@ -83,7 +88,7 @@
 					  <h5 class="card-title">Brands</h5>
 					  <p class="card-text">Here you can manage your brands</p>
 					  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#form_brand">Add</a>
-					  <a href="#" class="btn btn-primary"> Manage</a>
+					  <a href="manage_brand.php" class="btn btn-primary"> Manage</a>
 					</div>
 				</div>
 			</div>
@@ -93,7 +98,7 @@
 					  <h5 class="card-title">Products</h5>
 					  <p class="card-text">Here you can manage your products</p>
 					  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#form_product">Add</a>
-					  <a href="#" class="btn btn-primary"> Manage</a>
+					  <a href="manage_product.php" class="btn btn-primary"> Manage</a>
 					</div>
 				</div>
 			</div>

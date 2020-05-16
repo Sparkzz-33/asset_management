@@ -23,8 +23,12 @@ class Manage
 		if($table=="categories"){
 			$sql="SELECT p.category_name AS category, c.category_name AS parent, p.cid, p.status FROM categories p LEFT JOIN categories c ON p.parent_cat=c.cid ".$a["limit"];
 		}
+		else if($table == "products")
+		{
+			$sql = "SELECT p.pid, p.product_name, c.category_name, b.brand_name, p.product_price, p.product_stock, p.added_date, p.p_status FROM products p, brands b, categories c WHERE p.bid = b.bid AND p.cid = c.cid ".$a["limit"];
+		}
 		else{
-			$sql="SELECT p.pid,p.product_name,c.category_name,p.product_price,p.product_stock,p.added_date,p.p_status FROM products p, categories c WHERE p.cid=c.cid ".$a["limit"];
+			$sql="SELECT * FROM ".$table." ".$a["limit"];
 		}
 		$result=$this->con->query($sql) or die($this->con->error);
 		$rows=array();
@@ -44,28 +48,28 @@ class Manage
 			$pageno = $pno;
 			$numberOfRecordsPerPage = $n;
 			$last = ceil($row["rows1"]/$numberOfRecordsPerPage);
-			$pagination = "<ul class='pagination'>";
+			$pagination = "<ul class='pagination' style='align-self:center'>";
 			if ($last != 1) {
 				if ($pageno > 1) {
 					$previous = "";
 					$previous = $pageno - 1;
-					$pagination .= "<li class='page-item'><a class='page-link' pn='".$previous."' href='#' style='color:#333;'> Previous </a></li>";
+					$pagination .= "<li class='page-item'><a class='page-link' pn='".$previous."' href='#' style='color:#0000FF;'> Previous </a></li>";
 				}
 				for($i=$pageno - 5;$i< $pageno ;$i++){
 					if ($i > 0) {
-						$pagination .= "<li class='page-item'><a class='page-link' pn='".$i."' href='#'> ".$i." </a></li>";
+						$pagination .= "<li class='page-item'><a class='page-link' pn='".$i."' href='#' style='color:#0000FF'> ".$i." </a></li>";
 					}	
 				}
-				$pagination .= "<li class='page-item'><a class='page-link' pn='".$pageno."' href='#' style='color:#333;'> $pageno </a></li>";
+				$pagination .= "<li class='page-item'><a class='page-link' pn='".$pageno."' href='#' style='color:#FF0000;'> $pageno </a></li>";
 				for ($i=$pageno + 1; $i <= $last; $i++) { 
-					$pagination .= "<li class='page-item'><a class='page-link' pn='".$i."' href='#'> ".$i." </a></li>";
+					$pagination .= "<li class='page-item'><a class='page-link' pn='".$i."' href='#' style='color:#0000FF;'> ".$i." </a></li>";
 					if ($i > $pageno + 4) {
 						break;
 					}
 				}
 				if ($last > $pageno) {
 					$next = $pageno + 1;
-					$pagination .= "<li class='page-item'><a class='page-link' pn='".$next."' href='#' style='color:#333;'> Next </a></li></ul>";
+					$pagination .= "<li class='page-item'><a class='page-link' pn='".$next."' href='#' style='color:#0000FF;'> Next </a></li></ul>";
 				}
 			}
 			//LIMIT 0,10
@@ -132,13 +136,25 @@ class Manage
 			return 0;
 		}
 	}
-
+	//Update Brand
+	public function updateBrand($bid, $brand){
+		$pre_stmt=$this->con->prepare("UPDATE `brands` SET `brand_name`= ?,`status`= ? WHERE bid = ?");
+		$status=1;
+		$pre_stmt->bind_param("sii",$brand,$status,$bid);
+		$result=$pre_stmt->execute() or die($this->con->error);
+		if($result){
+			return "BRAND_UPDATED";
+		}
+		else{
+			return 0;
+		}
+	}
 }
 
 
-//$obj = new Manage();
-// // // // echo "<pre>";
-// // // //print_r($obj->manageRecordWithPagination("categories", 1));
+// $obj = new Manage();
+// echo "<pre>";
+// print_r($obj->manageRecordWithPagination("products", 1));
 //   echo $obj->deleteRecord("categories","cid" ,13);
 //print_r($obj->updateCategory(1,0,"Electro"));
 

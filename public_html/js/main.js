@@ -299,15 +299,18 @@ $(document).ready(function(){
 					data = res;
 					if(data == "BRAND_ADDED")
 					{
+						alert("Brand Added Successfully");
 						$("#brand_name").removeClass("border-danger");
-					 	$("#brand_error").html("<span class='text-success'>New Brand Added Successfully</span>");
+					 	//$("#brand_error").html("<span class='text-success'>New Brand Added Successfully</span>");
 					 	$("#brand_name").val("");
 					 	fetch_brand();
+					 	// $("#brand_error").html("<span/>");
 					}
 					else
 					{
 						alert(data);
 					}
+
 				}
 			})
 		}

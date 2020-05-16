@@ -139,4 +139,190 @@ $(document).ready(function(){
 			})
 		} 
 	})
+
+	//Manage Brand
+	manageBrand(1);
+	function manageBrand(pn){
+		$.ajax({
+			url : DOMAIN + "/includes/process.php",
+				method : "POST",
+				data  : {manageBrand:1, pageno:pn}, 
+				success : function(data)
+				{
+					$("#get_brand").html(data);
+				}
+		})
+	}
+	$("body").delegate(".page-link", "click", function(){
+		var pn = $(this).attr("pn");
+		manageBrand(pn);
+	})
+
+	$("body").delegate(".del_brand", "click", function(){
+		var did = $(this).attr("did");
+		if (confirm("Are you sure? You want to delete")) 
+		{
+			$.ajax({
+			url : DOMAIN + "/includes/process.php",
+				method : "POST",
+				data  : {deleteBrand:1, id:did}, 
+				success : function(data)
+				{
+					var j;
+					var res;
+					for(j=0;j<String(data).length;j++)
+					{
+						if(String(data).charCodeAt(j) >= 65)
+						{
+							res = String(data).substring(j);
+							break;
+						}
+					}
+					data = res;
+					
+					if(data == "DELETED")
+					{
+						alert("Deletion Successful");
+						manageBrand(1);
+					}
+					else
+					{
+						alert(data);
+					}
+				}
+		})
+		}
+		else
+		{
+		}
+	})
+
+	$("body").delegate(".edit_brand", "click", function(){
+		var eid = $(this).attr("eid");
+		$.ajax({
+			url : DOMAIN + "/includes/process.php",
+			method : "POST",
+			dataType : "json",
+			data : {updateBrand:1, id:eid},
+			success : function(data)
+			{
+				$("#bid").val(data["bid"]);
+				$("#update_brand").val(data["brand_name"]);
+			}
+		})
+	})
+
+	$("#update_brand_form").on("submit", function(){
+		if($("#update_brand").val() == "")
+		{
+			$("#update_brand").addClass("border-danger");
+			$("#brand_error").html("<span class='text-danger'>Please enter brand name</span>");
+		}
+		else
+		{
+			$.ajax({
+				url : DOMAIN + "/includes/process.php",
+				method : "POST",
+				data  :$("#update_brand_form").serialize(),
+				success : function(data)
+				{
+					var j;
+					var res;
+					for(j=0;j<String(data).length;j++)
+					{
+						if(String(data).charCodeAt(j) >= 65)
+						{
+							res = String(data).substring(j);
+							break;
+						}
+					}
+					data = res;
+					if(data == "BRAND_UPDATED")
+					{
+						alert("Brand Updated Successfully");
+						window.location.href="";
+						
+					}
+					else
+					{
+						alert(data);
+					}
+					
+				}
+			})
+		} 
+	})
+
+	//******************Products***************
+	manageProduct(1);
+	function manageProduct(pn){
+		$.ajax({
+			url : DOMAIN + "/includes/process.php",
+				method : "POST",
+				data  : {manageProduct:1, pageno:pn}, 
+				success : function(data)
+				{
+					$("#get_product").html(data);
+				}
+		})
+	}
+	$("body").delegate(".page-link", "click", function(){
+		var pn = $(this).attr("pn");
+		manageBrand(pn);
+	})
+
+	$("body").delegate(".del_product", "click", function(){
+		console.log("Hello");
+		var did = $(this).attr("did");
+		if (confirm("Are you sure? You want to delete")) 
+		{
+			$.ajax({
+			url : DOMAIN + "/includes/process.php",
+				method : "POST",
+				data  : {deleteProduct:1, id:did}, 
+				success : function(data)
+				{
+					var j;
+					var res;
+					for(j=0;j<String(data).length;j++)
+					{
+						if(String(data).charCodeAt(j) >= 65)
+						{
+							res = String(data).substring(j);
+							break;
+						}
+					}
+					data = res;
+					
+					if(data == "DELETED")
+					{
+						alert("Deletion Successful");
+						manageProduct(1);
+					}
+					else
+					{
+						alert(data);
+					}
+				}
+		})
+		}
+		else
+		{
+		}
+	})
+
+	$("body").delegate(".edit_product", "click", function(){
+		var eid = $(this).attr("eid");
+		$.ajax({
+			url : DOMAIN + "/includes/process.php",
+			method : "POST",
+			dataType : "json",
+			data : {updateProduct:1, id:eid},
+			success : function(data)
+			{
+				$("#pid").val(data["pid"]);
+				$("#update_product").val(data["product_name"]);
+			}
+		})
+	})
 })

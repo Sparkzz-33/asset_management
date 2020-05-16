@@ -37,13 +37,12 @@
 		    <thead>
 		      <tr>
 		        <th>No.</th>
-		        <th>Category</th>
-		        <th>Parent</th>
+		        <th>Brand</th>
 		        <th>Status</th>
 		        <th>Action</th>
 		      </tr>
 		    </thead>
-		    <tbody id="get_category">
+		    <tbody id="get_brand">
 		      <!-- <tr>
 		        <td>1</td>
 		        <td>Electronics</td>
@@ -61,7 +60,7 @@
 		 </table>
 	</div>
 <?php
-	include_once("./templates/update_category.php");
+	include_once("./templates/update_brand.php");
 ?>
 
 
