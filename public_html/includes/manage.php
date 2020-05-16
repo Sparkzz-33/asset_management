@@ -149,6 +149,20 @@ class Manage
 			return 0;
 		}
 	}
+
+	public function updateProduct($pid, $product, $price, $qty, $brand, $cat){
+		$pre_stmt=$this->con->prepare("UPDATE `products` SET `product_name`= ?, `bid` = ?, `p_status`= ?, `product_price` = ?, `product_stock` = ?, `cid` = ? WHERE `pid` = ?");
+		$status=1;
+		$pre_stmt->bind_param("siiiiii",$product,$brand, $status,$price, $qty, $cat, $pid);
+		$result=$pre_stmt->execute() or die($this->con->error);
+		if($result){
+			return "PRODUCT_UPDATED";
+		}
+		else{
+			return 0;
+		}
+	}
+
 }
 
 

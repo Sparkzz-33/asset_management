@@ -241,14 +241,18 @@ if (isset($_POST["updateProduct"])) {
 	exit();
 }
 
-// if (isset($_POST["update_product"])) {
-// 	$m = new Manage();
-// 	$id = $_POST["bid"];
-// 	$name = $_POST["update_brand"];
-// 	$result = $m->updateBrand($id, $name);
-// 	echo $result;
-// 	exit();
-// }
+if (isset($_POST["update_product"])) {
+	$m = new Manage();
+	$id = $_POST["pid"];
+	$name = $_POST["update_product"];
+	$price = $_POST["update_product_price"];
+	$qty = $_POST["update_product_qty"];
+	$cat = $_POST["update_product_cat"];
+	$brand = $_POST["update_product_brand"];
+	$result = $m->updateProduct($id, $name, $price, $qty, $brand, $cat);
+	echo $result;
+	exit();
+}
 
 
 ?>

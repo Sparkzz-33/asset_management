@@ -76,9 +76,9 @@ $(document).ready(function(){
 			success : function(data)
 			{
 				var root="<option value='0'>Root</option>";
-				var choose="<option value=''>Choose Category</option>";
+				//var choose="<option value=''>Choose Category</option>";
 				$('#parent_cat').html(root+data);
-				$('#select_cat').html(choose+data);
+				//$('#select_cat').html(choose+data);
 			}
 		})
 	}
@@ -93,6 +93,7 @@ $(document).ready(function(){
 			data : {updateCategory:1, id:eid},
 			success : function(data)
 			{
+				console.log(data);
 				$("#cid").val(data["cid"]);
 				$("#update_category").val(data["category_name"]);
 				$("#parent_cat").val(data["parent_cat"]);
@@ -311,6 +312,39 @@ $(document).ready(function(){
 		}
 	})
 
+	fetch_category1();
+	function fetch_category1()
+	{
+		$.ajax({
+			url : DOMAIN + "/includes/process.php",
+			method  :"POST",
+			data : {getCategory:1},
+			success : function(data)
+			{
+				var root="<option value='0'>Root</option>";
+				//var choose="<option value=''>Choose Category</option>";
+				$('#update_product_cat').html(root+data);
+				//$('#select_cat').html(choose+data);
+			}
+		})
+	}
+
+	fetch_brand();
+	function fetch_brand()
+	{
+		$.ajax({
+			url : DOMAIN + "/includes/process.php",
+			method  :"POST",
+			data : {getBrand:1},
+			success : function(data)
+			{
+				
+				//var choose = "<option value=''>Choose Brand</option>";
+				$('#update_product_brand').html(data);
+			}
+		})
+	}
+
 	$("body").delegate(".edit_product", "click", function(){
 		var eid = $(this).attr("eid");
 		$.ajax({
@@ -318,11 +352,58 @@ $(document).ready(function(){
 			method : "POST",
 			dataType : "json",
 			data : {updateProduct:1, id:eid},
+			
 			success : function(data)
 			{
+				console.log(data);
 				$("#pid").val(data["pid"]);
 				$("#update_product").val(data["product_name"]);
+				$("#update_product_price").val(data["product_price"]);
+				$("#update_product_qty").val(data["product_stock"]);
+				$("#update_product_cat").val(data["cid"]);
+				$("#update_product_brand").val(data["bid"]);
 			}
 		})
+	})
+
+	$("#update_product_form").on("submit", function(){
+		if($("#update_product").val() == "")
+		{
+			$("#update_product").addClass("border-danger");
+			$("#product_error").html("<span class='text-danger'>Please enter product name</span>");
+		}
+		else
+		{
+			$.ajax({
+				url : DOMAIN + "/includes/process.php",
+				method : "POST",
+				data  :$("#update_product_form").serialize(),
+				success : function(data)
+				{
+					var j;
+					var res;
+					for(j=0;j<String(data).length;j++)
+					{
+						if(String(data).charCodeAt(j) >= 65)
+						{
+							res = String(data).substring(j);
+							break;
+						}
+					}
+					data = res;
+					if(data == "PRODUCT_UPDATED")
+					{
+						alert("Product Updated Successfully");
+						window.location.href="";
+						
+					}
+					else
+					{
+						alert(data);
+					}
+					
+				}
+			})
+		} 
 	})
 })
