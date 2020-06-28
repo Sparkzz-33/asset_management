@@ -84,11 +84,106 @@ class DBOperation
 		}
 	}
 
+	public function searchByCategory($title)
+	{
+		$pre_stmt = $this->con->prepare("SELECT `cid` FROM `categories` WHERE `category_name` = ?");
+		$pre_stmt->bind_param("s", $title);
+		$pre_stmt->execute() or die($this->con->error);
+		$result = $pre_stmt->get_result();
+		if ($result->num_rows > 0) 
+		{
+			while($row1 = $result->fetch_assoc())
+			{
+				$rows1[] = $row1;
+			}
+			if($rows1[0]['cid'])
+			{
+				$pre_stmt = $this->con->prepare("SELECT * FROM `products` WHERE `cid` = ".$rows1[0]['cid']."");
+				$pre_stmt->execute() or die($this->con->error);
+				$result1 = $pre_stmt->get_result();
+				if($result1->num_rows > 0){
+					while($row = $result1->fetch_assoc())
+					{
+						$rows[] = $row;
+					}
+					return $rows;
+				}
+				// return $result; 
+				else
+				{
+					return "No product for this parameter";
+				}
+			}
+		}		
+		else
+		{
+			return "Invalid_Paramter";
+		}
+	}
+
+	public function searchByBrand($title)
+	{
+		$pre_stmt = $this->con->prepare("SELECT `bid` FROM `brands` WHERE `brand_name` = ?");
+		$pre_stmt->bind_param("s", $title);
+		$pre_stmt->execute() or die($this->con->error);
+		$result = $pre_stmt->get_result();
+		if ($result->num_rows > 0) 
+		{
+			while($row1 = $result->fetch_assoc())
+			{
+				$rows1[] = $row1;
+			}
+			if($rows1[0]['bid'])
+			{
+				$pre_stmt = $this->con->prepare("SELECT * FROM `products` WHERE `bid` = ".$rows1[0]['bid']."");
+				$pre_stmt->execute() or die($this->con->error);
+				$result1 = $pre_stmt->get_result();
+				if($result1->num_rows > 0){
+					while($row = $result1->fetch_assoc())
+					{
+						$rows[] = $row;
+					}
+					return $rows;
+				}
+				// return $result; 
+				else
+				{
+					return "No product for this parameter";
+				}
+			}
+		}		
+		else
+		{
+			return "Invalid_Paramter";
+		}
+	}
+
+	public function searchByProduct($title)
+	{
+	
+		$pre_stmt = $this->con->prepare("SELECT * FROM `products` WHERE `product_name` = ?");
+		$pre_stmt->bind_param("s", $title);
+		$pre_stmt->execute() or die($this->con->error);
+		$result = $pre_stmt->get_result();
+		if($result->num_rows > 0)
+		{
+			while($row1 = $result->fetch_assoc())
+			{
+				$rows1[] = $row1;
+			}
+			return $rows1;
+		}
+		else
+		{
+			return "No product for this parameter";
+		}		
+	}
 
 }
 
 // $opr = new DBOperation();
-// //echo $opr->addCategory(1,"Mobiles");
+// echo "<pre>";
+// print_r($opr->searchByCategory("Vehicles"));
 // echo "<pre>";
 // print_r($opr->getAllRecord("categories"));
 

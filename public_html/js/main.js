@@ -8,6 +8,7 @@ $(document).ready(function(){
 		var pass1 = $("#password1");
 		var pass2 = $("#password2");
 		var type = $("#usertype");
+		//alert(name);
 		//var n_patt = new RegExp(/^[A-Za-z ]+$/);
 		var e_patt = new RegExp(/^[A-Za-z0-9_-]+(\.[a-z0-9_-]+)*@[a-z0-9_-]+(\.[A-Za-z0-9_-]+)*(\.[a-z]{2,4})$/);
 		if(name.val() == "")

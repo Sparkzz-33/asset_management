@@ -19,6 +19,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script type="text/javascript" src="./js/main.js"></script>
+    <script type="text/javascript" src="./js/manage.js"></script>
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- <style>
     	body
@@ -39,9 +40,9 @@
 				  <img src="./images/user.jpg" style="height:16rem;" class="card-img-top">
 				  <div class="card-body">
 				    <h5 class="card-title">Profile</h5>
-				    <p class="card-text"><i class="fa fa-user">&nbsp;</i>Ashutosh Rajput</p>
-				    <p class="card-text"><i class="fa fa-users">&nbsp;</i>Admin</p>
-				    <p class="card-text">Last Login: 8:09 pm,Today</p>
+				    <p class="card-text"><i class="fa fa-user">&nbsp;</i><?php echo ($_SESSION["username"]); ?></p>
+				    <p class="card-text"><i class="fa fa-users">&nbsp;</i><?php echo "Admin"; ?></p>
+				    <p class="card-text">Last Login : <?php echo ($_SESSION["last_login"]); ?></p>
 				    <a href="#" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit Profile</a>
 				  </div>
 				</div>
@@ -58,9 +59,9 @@
 						<div class="col-sm-6">
 							<div class="card">
 						      <div class="card-body">
-						        <h5 class="card-title">New Orders</h5>
-						        <p class="card-text">Here you can create new orders and create invoices</p>
-						        <a href="#" class="btn btn-primary">New Orders</a>
+						        <h5 class="card-title">Search Products</h5>
+						        <p class="card-text">Here you can search products using different parameters</p>
+						        <a href="search_result.php" class="btn btn-primary">Search Products</a>
 						      </div>
 							</div>
 						</div>

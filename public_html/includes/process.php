@@ -254,5 +254,57 @@ if (isset($_POST["update_product"])) {
 	exit();
 }
 
+if (isset($_POST["search_title"])) {
+	$db = new DBOperation();
+	$title = $_POST["search_title"];
+	$parameter = $_POST["search_parameter"];
+	if ($parameter == 1){
+		$result = $db->searchByCategory($title);
+		$rows = $result;
+	}
+	else if($parameter == 2)
+	{
+		$result = $db->searchByBrand($title);
+		$rows = $result;
+	}
+	else
+	{
+		$result = $db->searchByProduct($title);
+		$rows = $result;
+	}
+	if($result[0] == 'I' || $result[0] == 'N')
+		{
+			echo $result;
+			exit();
+		}
+		else if (count($rows) > 0) {
+		//$n = ($_POST["pageno"] - 1) * 5 + 1;
+
+
+		foreach ($rows as $row) {
+			?>
+
+				 <tr>
+			        <td><?php echo $row["product_name"] ?></td>
+			        <td><?php echo $row["product_price"] ?></td>
+			        <td><?php echo $row["product_stock"] ?></td>
+			        <td><?php echo $row["added_date"] ?></td>
+
+			        <td>
+			        	<a href="#" class="btn btn-success btn-sm">Active</a>
+			        </td>
+			        <td>
+			        	<a href="#" did="<?php echo $row['pid']; ?>" class="btn btn-danger btn-sm del_product">Delete</a>
+			        	<a href="#"  eid="<?php echo $row['pid']; ?>" class="btn btn-primary btn-sm edit_product" data-toggle="modal" data-target="#up_product">Edit</a>
+			        </td>
+			     </tr>
+
+			     <!-- <h1> Hello World </h1> -->
+
+			<?php
+		}
+		exit();
+	}
+}
 
 ?>

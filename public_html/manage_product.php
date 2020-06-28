@@ -67,7 +67,5 @@
 <?php
 	include_once("./templates/update_product.php");
 ?>
-
-
 </body>
 </html>

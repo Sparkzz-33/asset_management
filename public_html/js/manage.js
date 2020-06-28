@@ -406,4 +406,32 @@ $(document).ready(function(){
 			})
 		} 
 	})
+
+
+	//Search Product
+
+	$("#search_product_form").on("submit", function(){
+
+		//alert("Hi");
+		if($("#search_title").val() == "")
+		{
+			$("#search_title").addClass("border-danger");
+			$("#search_error").html("<span class='text-danger'>Please enter title</span>");
+		}
+		else
+		{
+			$.ajax({
+				url : DOMAIN + "/includes/process.php",
+				method : "POST",
+				data  :$("#search_product_form").serialize(),
+				success : function(data)
+				{
+					
+						$("#product_result").html(data);
+			
+					
+				}
+			})
+		} 
+	})
 })

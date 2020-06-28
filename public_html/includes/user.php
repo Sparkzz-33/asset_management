@@ -75,7 +75,7 @@ class User
 				$_SESSION["userid"] = $row["id"];
 				$_SESSION["username"] = $row["username"];
 				$_SESSION["last_login"] = $row["last_login"];
-
+				$_SESSION["usertype"] = $row["usertype"];
 				//updating lasgt login
 				$last_login = date("Y-m-d h:m:s");
 				$pre_stmt = $this->con->prepare("UPDATE user SET last_login = ? WHERE email = ?");
